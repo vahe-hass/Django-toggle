@@ -15,3 +15,11 @@ urlpatterns = [
     re_path(r'^.*\.*', views.pages, name='pages'),
 
 ]
+
+
+htmx_urlpatterns = [
+
+    path('toggle_input', views.toggle_input, name='toggle-input')
+]
+
+urlpatterns += htmx_urlpatterns

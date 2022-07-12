@@ -4,12 +4,18 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django import template
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Service
+
+
+@csrf_exempt
+def toggle_input(request):
+    print("It works")
 
 
 def logout_user(request):
