@@ -45,7 +45,7 @@
   <script src="https://unpkg.com/htmx.org@1.7.0"></script>
 
 </head>
-<body class="g-sidenav-show  bg-gray-100">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="g-sidenav-show  bg-gray-100">
 
   {% include "includes/sidebar.html" %}
 

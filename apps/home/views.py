@@ -13,9 +13,22 @@ from django.urls import reverse
 from .models import Service
 
 
-@csrf_exempt
+# refactor this by reducing 2 queries to 1. eg(service.objects.filter & get)
+@login_required(login_url="/login/")
 def toggle_input(request):
-    print("It works")
+    current_user = request.user
+    current_user_id = current_user.id
+    if Service.objects.filter(user_id=current_user_id).exists():
+        current_user_service = Service.objects.get(user_id=current_user_id)
+        service_state = current_user_service.seo
+        if service_state == True:
+            current_user_service.seo = False
+            current_user_service.save()
+        else:
+            current_user_service.seo = True
+            current_user_service.save()
+
+    return HttpResponse("")
 
 
 def logout_user(request):
@@ -74,6 +87,7 @@ def pages(request):
 
         html_template = loader.get_template('home/page-404.html')
         return HttpResponse(html_template.render(context, request))
+        pass
 
     except:
         html_template = loader.get_template('home/page-500.html')
